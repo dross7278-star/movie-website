@@ -14,7 +14,7 @@ A modern, responsive landing page for an action movie themed website.
 
 - `index.html` - landing page markup
 - `style.css` - visual design and responsive styles
-- `javascript` - legacy script file (not required by the landing page)
+- `javascript.js` - movie search behavior and UI logic
 - `.github/workflows/deploy-pages.yml` - GitHub Pages deployment workflow
 - `.vscode/settings.json` - workspace autosave settings
 
