@@ -14,16 +14,8 @@ const resultsSummary = document.getElementById("results-summary");
 const statusMessage = document.getElementById("status-message");
 const UI_STATE_STORAGE_KEY = "action_movies_ui_state";
 const allowedMovies = [
-	{ imdbID: "tt3896198", title: "Guardians of the Galaxy: Vol. 2" },
-	{ imdbID: "tt0468569", title: "The Dark Knight" },
-	{ imdbID: "tt1375666", title: "Inception" },
-	{ imdbID: "tt0816692", title: "Interstellar" },
-	{ imdbID: "tt4154796", title: "Avengers: Endgame" },
-	{ imdbID: "tt1825683", title: "Black Panther" },
-	{ imdbID: "tt10872600", title: "Spider-Man: No Way Home" },
-	{ imdbID: "tt0133093", title: "The Matrix" },
-	{ imdbID: "tt1392190", title: "Mad Max: Fury Road" },
-	{ imdbID: "tt1160419", title: "Dune" },
+	{ title: "Batman" },
+	{ title: "Superman" },
 ];
 let currentMovies = [];
 let currentView = "home";
@@ -217,6 +209,17 @@ async function fetchMovieById(imdbID) {
 	return detailData.Response === "True" ? detailData : null;
 }
 
+async function fetchMovieByTitle(title) {
+	const detailParams = new URLSearchParams({
+		apikey: API_KEY,
+		t: title,
+		plot: "short",
+	});
+
+	const detailData = await fetchJson(`${API_BASE}?${detailParams.toString()}`);
+	return detailData.Response === "True" ? detailData : null;
+}
+
 function matchesFilters(movie, filters) {
 	const year = normalizeText(movie.Year);
 	const director = normalizeText(movie.Director);
@@ -318,7 +321,7 @@ async function loadHomeShelves() {
 	resultsGrid.innerHTML = `<div class="empty-state">Loading featured movies...</div>`;
 
 	try {
-		const movies = (await Promise.all(allowedMovies.map((movie) => fetchMovieById(movie.imdbID)))).filter(Boolean);
+		const movies = (await Promise.all(allowedMovies.map((movie) => fetchMovieByTitle(movie.title)))).filter(Boolean);
 		updateDisplayedMovies(movies, "home");
 		resultsSummary.textContent = "Featured movies on the home shelf.";
 		setStatus("Browse the featured rows or search for something specific.");
@@ -366,7 +369,7 @@ async function runSearch(event) {
 	resultsGrid.innerHTML = `<div class="empty-state">Loading movies...</div>`;
 
 	try {
-		const movies = (await Promise.all(matchingAllowedMovies.map((movie) => fetchMovieById(movie.imdbID)))).filter(Boolean);
+		const movies = (await Promise.all(matchingAllowedMovies.map((movie) => fetchMovieByTitle(movie.title)))).filter(Boolean);
 		const filteredMovies = movies.filter((movie) => matchesFilters(movie, { year, director, rating }));
 
 		resultsSummary.textContent = `${filteredMovies.length} movie${filteredMovies.length === 1 ? "" : "s"} shown`;
