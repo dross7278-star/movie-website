@@ -16,6 +16,8 @@ const UI_STATE_STORAGE_KEY = "action_movies_ui_state";
 const allowedMovies = [
 	{ title: "Batman" },
 	{ title: "Superman" },
+	{ title: "Avengers" },
+	{ title: "Fast and Furious" },
 ];
 let currentMovies = [];
 let currentView = "home";
