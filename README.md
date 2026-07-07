@@ -1,6 +1,11 @@
-# Action Movies Landing Page
+# New Repo Name
 
-A modern, responsive landing page for an action movie themed website.
+A modern, responsive movie explorer website — a static recreation of [dross7278-star/Video-website](https://dross7278-star.github.io/Video-website/) with updated branding.
+
+## What changed
+
+- **Rebranding**: site title and hero heading renamed from "Action Movies" to "New Repo Name" across `index.html` (page `<title>`, hero `<h1>`) and this README.
+- **Recreation source**: originally built from `https://dross7278-star.github.io/Video-website/`, converted from a React/Vite application to a self-contained static site (plain HTML, CSS, and JavaScript) for simpler GitHub Pages deployment from the repository root.
 
 ## Features
 
